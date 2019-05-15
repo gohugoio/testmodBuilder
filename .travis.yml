@@ -5,6 +5,21 @@ env:
    global:
     - GO111MODULE=on
     - GOPROXY="https://proxy.golang.org"
+
+matrix:
+    include:
+        - os: linux
+          env:
+          - K=$encrypted_8df8c5cb3fb6_key
+          - IV=$encrypted_8df8c5cb3fb6_iv
+        - os: osx
+          env:
+          - K=$encrypted_6d9c893e872c_key
+          - IV=$encrypted_6d9c893e872c_iv
+        - os: windows
+          env:
+          - K=$encrypted_bd59bad23324_key
+          - IV=$encrypted_bd59bad23324_iv
 go:
   - 1.12.x
 
@@ -14,8 +29,21 @@ git:
 notifications:
   email: false
 
-before_install:
-  - openssl aes-256-cbc -K $encrypted_52681b3983bc_key -iv $encrypted_52681b3983bc_iv -in github_deploy_key1.enc -out github_deploy_key -d
+before_script:
+  - git config --global user.email "hugo-ci@gohugo.io"
+  - git config --global user.name "Hugo CI"
+  - >-
+    openssl aes-256-cbc 
+    -K $K 
+    -iv $IV 
+    -in github_deploy_key_$TRAVIS_OS_NAME.enc 
+    -out github_deploy_key 
+    -d
+  - chmod 600 github_deploy_key
+  - eval $(ssh-agent -s)
+  - ssh-add github_deploy_key
+  - mkdir -p ~/.ssh
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 script:
   - cd  testmodBuilder/build
   - go run main.go

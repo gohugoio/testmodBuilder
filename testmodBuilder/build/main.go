@@ -113,7 +113,7 @@ func (b *mb) clean() error {
 	// The clean script will be run with the target repo's PWD, so
 	// we need to make the path absolute.
 	dir, _ := os.Getwd()
-	if err := b.run(filepath.Join(dir, "clean.sh")); err != nil {
+	if err := b.run("bash", filepath.Join(dir, "clean.sh")); err != nil {
 		return err
 	}
 
