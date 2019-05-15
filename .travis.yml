@@ -4,7 +4,7 @@ language: go
 env:
    global:
     - GO111MODULE=on
-    - GOPROXY=direct
+    - GOPROXY="https://proxy.golang.org"
 go:
   - 1.12.x
 
