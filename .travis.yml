@@ -1,0 +1,21 @@
+dist: xenial
+
+language: go
+env:
+   global:
+    - GO111MODULE=on
+    - GOPROXY=direct
+go:
+  - 1.12.x
+
+git:
+  depth: 1
+
+notifications:
+  email: false
+
+before_install:
+  - openssl aes-256-cbc -K $encrypted_52681b3983bc_key -iv $encrypted_52681b3983bc_iv -in github_deploy_key1.enc -out github_deploy_key -d
+script:
+  - cd  testmodBuilder/build
+  - go run main.go
