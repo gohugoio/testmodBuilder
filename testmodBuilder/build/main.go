@@ -4,11 +4,13 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
 	"path"
 	"path/filepath"
+	"runtime"
 	"strings"
 
 	"github.com/gohugoio/hugo/modules"
@@ -19,30 +21,36 @@ import (
 )
 
 const (
-	// TODO(bep)
-	basePath = "github.com/gohugoio/hugoTestModules1"
-	localDir = "/Users/bep/dev/go/gohugoio/hugoTestModules1"
 
 	// Increment the minor version.
 	versionTemplate = "v1.%d.0"
+	testGitRepoBase = "hugoTestModules1"
 )
 
 func main() {
+	// Run this on darwin, linux and windows.
+	goos := runtime.GOOS
+	gitRepo := testGitRepoBase + "_" + goos
 
-	dir := localDir
+	dir, err := ioutil.TempDir("", "hugotestmods")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer os.RemoveAll(dir)
+
 	fs := afero.NewOsFs()
 	m := mods.CreateModules()
-
-	environ := osutil.Environ(os.Environ())
-	environ.Set("PWD", dir)
 
 	b := &mb{
 		fs:      fs,
 		mods:    m.Collect(),
-		environ: environ,
-		dir:     dir,
+		environ: osutil.Environ(os.Environ()),
 	}
 
+	b.cdir(dir)
+
+	must(b.run("git", "clone", fmt.Sprintf("git@github.com:gohugoio/%s.git", gitRepo)))
+	b.cdir(filepath.Join(dir, gitRepo))
 	must(b.all())
 
 }
@@ -55,7 +63,12 @@ type mb struct {
 	fs      afero.Fs
 	mods    []*mods.Md
 	dir     string
-	environ []string
+	environ osutil.Environ
+}
+
+func (b *mb) cdir(dir string) {
+	b.environ.Set("PWD", dir)
+	b.dir = dir
 }
 
 func (b *mb) createFiles() error {

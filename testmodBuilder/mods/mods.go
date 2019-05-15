@@ -3,13 +3,12 @@ package mods
 import (
 	"fmt"
 	"path"
+	"runtime"
 	"strings"
 )
 
 const (
-	// TODO(bep)
-	basePath = "github.com/gohugoio/hugoTestModules1"
-	localDir = "/Users/bep/dev/go/gohugoio/hugoTestModules1"
+	basePath = "github.com/gohugoio/hugoTestModules1_" + runtime.GOOS
 
 	// Increment the minor version.
 	versionTemplate = "v1.%d.0"
@@ -19,12 +18,12 @@ type Md struct {
 	name   string
 	Vendor bool
 
-	 Children Mds
+	Children Mds
 }
 
 func (m *Md) String() string {
 	s := m.Path()
-	for _, mm := range m. Children {
+	for _, mm := range m.Children {
 		s += "\n" + mm.String()
 	}
 
@@ -33,7 +32,7 @@ func (m *Md) String() string {
 
 func (m *Md) Collect() []*Md {
 	mds := []*Md{m}
-	for _, mm := range m. Children {
+	for _, mm := range m.Children {
 		mds = append(mds, mm.Collect()...)
 	}
 
@@ -43,7 +42,7 @@ func (m *Md) Collect() []*Md {
 
 func (m *Md) Paths() []string {
 	var p []string
-	for _, mm := range m. Children {
+	for _, mm := range m.Children {
 		p = append(p, mm.Path())
 	}
 
@@ -75,7 +74,7 @@ func (m *Md) init(idx int, parent *Md) {
 
 	m.name = fmt.Sprintf("%s%d", parentName, idx+1)
 	m.Vendor = idx%2 == 0
-	for i, mm := range m. Children {
+	for i, mm := range m.Children {
 		mm.init(i, m)
 	}
 
@@ -83,12 +82,12 @@ func (m *Md) init(idx int, parent *Md) {
 
 func createModule() *Md {
 	return &Md{
-		 Children: []*Md{
-			&Md{ Children: []*Md{
+		Children: []*Md{
+			&Md{Children: []*Md{
 				&Md{},
 				&Md{},
 			}},
-			&Md{ Children: []*Md{
+			&Md{Children: []*Md{
 				&Md{},
 				&Md{},
 			}},
@@ -98,8 +97,8 @@ func createModule() *Md {
 
 func createSmallModule() *Md {
 	return &Md{
-		 Children: []*Md{
-			&Md{ Children: []*Md{
+		Children: []*Md{
+			&Md{Children: []*Md{
 				&Md{},
 			}},
 		},
