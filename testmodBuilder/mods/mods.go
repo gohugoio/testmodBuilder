@@ -8,11 +8,20 @@ import (
 )
 
 const (
-	basePath = "github.com/gohugoio/hugoTestModules1_" + runtime.GOOS
-
 	// Increment the minor version.
 	versionTemplate = "v1.%d.0"
 )
+
+// TODO(bep)
+func SetGOOS(s string) {
+	goos = s
+}
+
+var goos string = runtime.GOOS
+
+func basePath() string {
+	return "github.com/gohugoio/hugoTestModules1_" + goos
+}
 
 type Md struct {
 	name   string
@@ -63,7 +72,7 @@ func (m *Md) Name() string {
 }
 
 func (m *Md) Path() string {
-	return path.Join(basePath, m.Name())
+	return path.Join(basePath(), m.Name())
 }
 
 func (m *Md) init(idx int, parent *Md) {
