@@ -45,5 +45,5 @@ before_script:
   - mkdir -p ~/.ssh
   - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 script:
-  - cd  testmodBuilder/build
+  - cd  build
   - go run main.go
