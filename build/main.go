@@ -39,7 +39,7 @@ func main() {
 	defer os.RemoveAll(dir)
 
 	fs := afero.NewOsFs()
-	m := mods.CreateModules()
+	m := mods.CreateModules(goos)
 
 	b := &mb{
 		fs:      fs,
