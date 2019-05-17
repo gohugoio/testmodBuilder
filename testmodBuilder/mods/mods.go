@@ -10,21 +10,21 @@ import (
 const (
 	// Increment the minor version.
 	versionTemplate = "v1.%d.0"
-)
 
-// TODO(bep)
-func SetGOOS(s string) {
-	goos = s
-}
+	basePath = "github.com/gohugoio/hugoTestModules1_"
+)
 
 var goos string = runtime.GOOS
 
-func basePath() string {
-	return "github.com/gohugoio/hugoTestModules1_" + goos
+type mdConfig struct {
+	goos string
 }
 
 type Md struct {
-	name   string
+	name string
+
+	*mdConfig
+
 	Vendor bool
 
 	Children Mds
@@ -72,7 +72,7 @@ func (m *Md) Name() string {
 }
 
 func (m *Md) Path() string {
-	return path.Join(basePath(), m.Name())
+	return path.Join(basePath+m.goos, m.Name())
 }
 
 func (m *Md) init(idx int, parent *Md) {
@@ -89,8 +89,16 @@ func (m *Md) init(idx int, parent *Md) {
 
 }
 
-func createModule() *Md {
-	return &Md{
+func createModule(goos string) *Md {
+	if goos == "" {
+		goos = runtime.GOOS
+	}
+
+	cfg := &mdConfig{
+		goos: goos,
+	}
+
+	m := &Md{
 		Children: []*Md{
 			&Md{Children: []*Md{
 				&Md{},
@@ -101,6 +109,20 @@ func createModule() *Md {
 				&Md{},
 			}},
 		},
+	}
+
+	setMdConfig(cfg, m)
+
+	return m
+}
+
+func setMdConfig(cfg *mdConfig, mds ...*Md) {
+	if len(mds) == 0 {
+		return
+	}
+	for _, md := range mds {
+		md.mdConfig = cfg
+		setMdConfig(cfg, md.Children...)
 	}
 }
 
@@ -124,10 +146,10 @@ func (m Mds) Collect() Mds {
 	return res
 }
 
-func CreateModules() Mds {
+func CreateModules(goos string) Mds {
 	mods := make(Mds, 2)
 	for i := 0; i < len(mods); i++ {
-		mods[i] = createModule()
+		mods[i] = createModule(goos)
 		mods[i].init(i, nil)
 	}
 
