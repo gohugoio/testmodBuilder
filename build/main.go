@@ -13,8 +13,8 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/gohugoio/hugo/modules"
-	"github.com/gohugoio/testmodBuilder/mods"
+	"github.com/gohugoio/hugo/mods"
+	testmods "github.com/gohugoio/testmodBuilder/mods"
 	"github.com/pkg/errors"
 	"github.com/shurcooL/go/osutil"
 	"github.com/spf13/afero"
@@ -39,7 +39,7 @@ func main() {
 	defer os.RemoveAll(dir)
 
 	fs := afero.NewOsFs()
-	m := mods.CreateModules(goos)
+	m := testmods.CreateModules(goos)
 
 	b := &mb{
 		fs:      fs,
@@ -61,7 +61,7 @@ type mb struct {
 	currentMinorVersion int
 
 	fs      afero.Fs
-	mods    []*mods.Md
+	mods    []*testmods.Md
 	dir     string
 	environ osutil.Environ
 }
@@ -99,8 +99,8 @@ func (b *mb) initGoMods() error {
 	return nil
 }
 
-func (b *mb) newModulesHandler(m *mods.Md) *modules.Handler {
-	return modules.New(b.fs, b.abs(m.Name()), "", m.Paths())
+func (b *mb) newModulesHandler(m *testmods.Md) *mods.Client {
+	return mods.NewClient(b.fs, true, b.abs(m.Name()), "", m.Paths())
 }
 
 func (b *mb) abs(name string) string {
