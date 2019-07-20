@@ -13,7 +13,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/gohugoio/hugo/mods"
+	"github.com/gohugoio/hugo/modules"
 	testmods "github.com/gohugoio/testmodBuilder/mods"
 	"github.com/pkg/errors"
 	"github.com/shurcooL/go/osutil"
@@ -99,8 +99,24 @@ func (b *mb) initGoMods() error {
 	return nil
 }
 
-func (b *mb) newModulesHandler(m *testmods.Md) *mods.Client {
-	return mods.NewClient(b.fs, true, b.abs(m.Name()), "", m.Paths())
+func (b *mb) newModulesHandler(m *testmods.Md) *modules.Client {
+
+	pths := m.Paths()
+	imports := make([]modules.Import, len(pths))
+	for i, v := range pths {
+		imports[i] = modules.Import{Path: v}
+	}
+
+	modConfig := modules.DefaultModuleConfig
+	modConfig.Imports = imports
+
+	client := modules.NewClient(modules.ClientConfig{
+		Fs:           b.fs,
+		WorkingDir:   b.abs(m.Name()),
+		ModuleConfig: modConfig,
+	})
+
+	return client
 }
 
 func (b *mb) abs(name string) string {

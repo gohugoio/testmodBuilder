@@ -228,8 +228,11 @@ github.com/gogo/protobuf v1.2.0/go.mod h1:r8qH/GZQm5c6nD/R0oafs1akxWv10x8SbQlK7a
 github.com/gogo/protobuf v1.2.1/go.mod h1:hp+jE20tsWTFYpLwKvXlhS1hjn+gTNwPg2I6zVXpSg4=
 github.com/gohugoio/hugo v0.55.6-0.20190528185734-ff2807ddb7dd h1:pmdV5e617nBptikClFQ5cooXCewj4GSuplqlbXgq1GU=
 github.com/gohugoio/hugo v0.55.6-0.20190528185734-ff2807ddb7dd/go.mod h1:/uOB8D9JAvVQxYYAjZjiNNHp0V1IRB4CsDQI3x3UAt8=
+github.com/gohugoio/hugo v0.55.6 h1:EJFziF4f4qlhg4rT1T225seKt83w1ZDiWbmUCwwrmoI=
 github.com/gohugoio/hugo v0.55.7-0.20190719170533-181f5fb81fcc h1:n+GxyHH5nfyWUILpFWG8Yqoligz12UGIpYlDlWJI/eE=
 github.com/gohugoio/hugo v0.55.7-0.20190719170533-181f5fb81fcc/go.mod h1:zlIS9JHjPt1tHExk3XXyMZE+vZVe8ZflPiWuKzbt5fM=
+github.com/gohugoio/hugo v0.55.7-0.20190720143133-99eafa8257df h1:ciVwsQLNqVWbxebODicBDNTCv+qP7Bib2HVtZee5xWs=
+github.com/gohugoio/hugo v0.55.7-0.20190720143133-99eafa8257df/go.mod h1:rpRmwsXJ89MNE/Twsl6VIZml6wwOW01cztTQNFOBbIA=
 github.com/gohugoio/testmodBuilder/mods v0.0.0-20190520184928-c56af20f2e95 h1:sgew0XCnZwnzpWxTt3V8LLiCO7OQi3C6dycaE67wfkU=
 github.com/gohugoio/testmodBuilder/mods v0.0.0-20190520184928-c56af20f2e95/go.mod h1:bOlVlCa1/RajcHpXkrUXPSHB/Re1UnlXxD1Qp8SKOd8=
 github.com/golang/gddo v0.0.0-20181116215533-9bd4a3295021/go.mod h1:xEhNfoBDX1hzLm2Nf80qUvZ2sVwoMZ8d6IE2SrsQfh4=
@@ -463,6 +466,7 @@ github.com/olekukonko/tablewriter v0.0.0-20180506121414-d4647c9c7a84/go.mod h1:v
 github.com/onsi/ginkgo v1.6.0/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=
 github.com/onsi/ginkgo v1.7.0/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=
 github.com/onsi/gomega v1.4.3/go.mod h1:ex+gbHU/CVuBBDIJjb2X0qEXbFg53c61hWP/1CpauHY=
+github.com/op/go-logging v0.0.0-20160315200505-970db520ece7/go.mod h1:HzydrMdWErDVzsI23lYNej1Htcns9BCg93Dk0bBINWk=
 github.com/opencontainers/go-digest v1.0.0-rc1/go.mod h1:cMLVZDEM3+U2I4VmLI6N8jQYUd2OVphdqWwCJHrFt2s=
 github.com/opencontainers/image-spec v1.0.1/go.mod h1:BtxoFyWECRxE4U/7sNtV5W15zMzWCbyJoFRP3s7yZA0=
 github.com/opencontainers/runc v0.1.1/go.mod h1:qT5XzbpPznkRYVz/mWwUaVBUv2rmF59PVA73FjuZG0U=

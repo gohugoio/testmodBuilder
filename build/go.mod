@@ -29,7 +29,7 @@ require (
 	github.com/go-stomp/stomp v2.0.2+incompatible // indirect
 	github.com/gobuffalo/envy v1.7.0 // indirect
 	github.com/gocql/gocql v0.0.0-20190122205811-30de9a1866a8 // indirect
-	github.com/gohugoio/hugo v0.55.7-0.20190719170533-181f5fb81fcc
+	github.com/gohugoio/hugo v0.55.7-0.20190720143133-99eafa8257df
 	github.com/gohugoio/testmodBuilder/mods v0.0.0-20190520184928-c56af20f2e95
 	github.com/google/gofuzz v0.0.0-20170612174753-24818f796faf // indirect
 	github.com/google/subcommands v0.0.0-20181012225330-46f0354f6315 // indirect
