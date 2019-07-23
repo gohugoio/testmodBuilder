@@ -113,6 +113,7 @@ func (b *mb) newModulesHandler(m *testmods.Md) *modules.Client {
 	client := modules.NewClient(modules.ClientConfig{
 		Fs:           b.fs,
 		WorkingDir:   b.abs(m.Name()),
+		IgnoreVendor: true,
 		ModuleConfig: modConfig,
 	})
 
