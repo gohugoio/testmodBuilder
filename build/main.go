@@ -16,7 +16,6 @@ import (
 	"github.com/gohugoio/hugo/modules"
 	testmods "github.com/gohugoio/testmodBuilder/mods"
 	"github.com/pkg/errors"
-	"github.com/shurcooL/go/osutil"
 	"github.com/spf13/afero"
 )
 
@@ -44,7 +43,7 @@ func main() {
 	b := &mb{
 		fs:      fs,
 		mods:    m.Collect(),
-		environ: osutil.Environ(os.Environ()),
+		environ: os.Environ(),
 	}
 
 	b.cdir(dir)
@@ -63,11 +62,11 @@ type mb struct {
 	fs      afero.Fs
 	mods    []*testmods.Md
 	dir     string
-	environ osutil.Environ
+	environ []string
 }
 
 func (b *mb) cdir(dir string) {
-	b.environ.Set("PWD", dir)
+	b.environ = append(b.environ, "PWD"+dir)
 	b.dir = dir
 }
 
