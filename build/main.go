@@ -66,7 +66,7 @@ type mb struct {
 }
 
 func (b *mb) cdir(dir string) {
-	b.environ = append(b.environ, "PWD"+dir)
+	b.environ = append(b.environ, "PWD="+dir)
 	b.dir = dir
 }
 
