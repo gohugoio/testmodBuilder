@@ -13,6 +13,7 @@ import (
 	"runtime"
 	"strings"
 
+	"github.com/gohugoio/hugo/hugofs/glob"
 	"github.com/gohugoio/hugo/modules"
 	testmods "github.com/gohugoio/testmodBuilder/mods"
 	"github.com/pkg/errors"
@@ -109,10 +110,11 @@ func (b *mb) newModulesHandler(m *testmods.Md) *modules.Client {
 	modConfig := modules.DefaultModuleConfig
 	modConfig.Imports = imports
 
+	globAll, _ := glob.GetGlob("**")
 	client := modules.NewClient(modules.ClientConfig{
 		Fs:           b.fs,
 		WorkingDir:   b.abs(m.Name()),
-		IgnoreVendor: true,
+		IgnoreVendor: globAll,
 		ModuleConfig: modConfig,
 	})
 
